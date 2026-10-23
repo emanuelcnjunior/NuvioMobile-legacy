@@ -31,7 +31,7 @@ jobs:
           set -euo pipefail
           APP="legacy-ios12/build/Build/Products/Release-iphoneos/NuvioLegacy.app"
           test "$(/usr/libexec/PlistBuddy -c 'Print :MinimumOSVersion' "$APP/Info.plist")" = "12.0"
-          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Info.plist")" = "0.1.2"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Info.plist")" = "0.2.0"
           xcrun lipo -archs "$APP/NuvioLegacy" | grep -qw arm64
       - name: Apply jailbreak ad-hoc signature with ldid
         run: |
@@ -48,7 +48,7 @@ jobs:
           mkdir -p output/Payload
           cp -R legacy-ios12/build/Build/Products/Release-iphoneos/NuvioLegacy.app output/Payload/
           cd output
-          zip -qry ../NuvioLegacy-v0.1.2-iOS12-jailbreak.ipa Payload
+          zip -qry ../NuvioLegacy-v0.2.0-iOS12-jailbreak.ipa Payload
       - name: Publish versioned IPA in GitHub Releases
         env:
           GH_TOKEN: ${{ github.token }}
@@ -56,9 +56,9 @@ jobs:
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           set -euo pipefail
-          TAG="ios12-v0.1.2-build.${RUN_NUMBER}"
-          gh release create "$TAG" NuvioLegacy-v0.1.2-iOS12-jailbreak.ipa \
+          TAG="ios12-v0.2.0-build.${RUN_NUMBER}"
+          gh release create "$TAG" NuvioLegacy-v0.2.0-iOS12-jailbreak.ipa \
             --target "$GITHUB_SHA" \
-            --title "Nuvio Legacy 0.1.2 (iOS 12) - Build ${RUN_NUMBER}" \
-            --notes "Build experimental para iOS 12.5.8 / iPad Air 1 com jailbreak. IPA com assinatura ad-hoc ldid; requer ambiente de jailbreak que aceite esse tipo de assinatura. Esta versão inicial oferece reprodução básica MP4/HLS." \
+            --title "Nuvio Legacy 0.2.0 (iOS 12) - Build ${RUN_NUMBER}" \
+            --notes "Build experimental para iOS 12.5.8 / iPad Air 1 com jailbreak. IPA com assinatura ad-hoc ldid; requer ambiente de jailbreak que aceite esse tipo de assinatura. Versão com interface de biblioteca, demonstração HLS e armazenamento local de endereços de vídeo." \
             --prerelease
