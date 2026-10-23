@@ -1,0 +1,22 @@
+name: NuvioLegacy
+options:
+  bundleIdPrefix: com.emanuelcnjunior
+targets:
+  NuvioLegacy:
+    type: application
+    platform: iOS
+    deploymentTarget: "12.0"
+    sources:
+      - AppDelegate.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.emanuelcnjunior.nuviolegacy
+        PRODUCT_NAME: NuvioLegacy
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "12.0"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchStoryboardName: ""
+        INFOPLIST_KEY_UIRequiresFullScreen: YES
+        CODE_SIGNING_ALLOWED: NO
+        SUPPORTS_MACCATALYST: NO
