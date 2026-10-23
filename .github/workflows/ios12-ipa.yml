@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: macos-15
     permissions:
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Install build tools
@@ -49,9 +49,16 @@ jobs:
           cp -R legacy-ios12/build/Build/Products/Release-iphoneos/NuvioLegacy.app output/Payload/
           cd output
           zip -qry ../NuvioLegacy-v0.1.2-iOS12-jailbreak.ipa Payload
-      - name: Upload IPA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: NuvioLegacy-v0.1.2-iOS12-jailbreak
-          path: NuvioLegacy-v0.1.2-iOS12-jailbreak.ipa
-          retention-days: 30
+      - name: Publish versioned IPA in GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          TAG="ios12-v0.1.2-build.${RUN_NUMBER}"
+          gh release create "$TAG" NuvioLegacy-v0.1.2-iOS12-jailbreak.ipa \
+            --target "$GITHUB_SHA" \
+            --title "Nuvio Legacy 0.1.2 (iOS 12) - Build ${RUN_NUMBER}" \
+            --notes "Build experimental para iOS 12.5.8 / iPad Air 1 com jailbreak. IPA com assinatura ad-hoc ldid; requer ambiente de jailbreak que aceite esse tipo de assinatura. Esta versão inicial oferece reprodução básica MP4/HLS." \
+            --prerelease
