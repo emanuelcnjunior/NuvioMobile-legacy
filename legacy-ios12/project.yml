@@ -12,6 +12,10 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.emanuelcnjunior.nuviolegacy
         PRODUCT_NAME: NuvioLegacy
+        MARKETING_VERSION: "0.1.1"
+        CURRENT_PROJECT_VERSION: "2"
+        INFOPLIST_KEY_CFBundleShortVersionString: "0.1.1"
+        INFOPLIST_KEY_CFBundleVersion: "2"
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1,2"
         IPHONEOS_DEPLOYMENT_TARGET: "12.0"
